@@ -5,7 +5,7 @@ import Hero from "./components/Hero";
 import Destination from "./components/Destination";
 import Search from "./components/Search";
 import Selects from "./components/Selects";
-import Carousel from "./Carousel";
+import Carousel from "./components/Carousel";
 
 function App() {
   return (

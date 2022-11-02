@@ -1,22 +1,30 @@
 import React from 'react'
 import { useState } from 'react';
 
-import {BsArrowLeftSquareFill, BsArrowRightSquareFill} from 'react-icons/bs'
+import { BsArrowLeftSquareFill, BsArrowRightSquareFill } from 'react-icons/bs'
 
 function Carousel() {
 
     const [slide, setSlide] = useState(0)
 
-    const length = slide.length
-
     const prevSlide = () => {
-         setSlide(prevSlide => prevSlide -1)
+        setSlide(prevSlide => {
+            if (prevSlide === 0) {
+                return sliderData.length - 1
+            } else {
+                return prevSlide - 1
+            }
+        })
     }
     const nextSlide = () => {
-        setSlide(prevSlide => prevSlide +1)
+        setSlide(prevSlide => {
+            if (prevSlide === sliderData.length - 1) {
+                return 0
+            } else {
+                return prevSlide + 1
+            }
+        })
     }
-
-    // fix logic - slider ujemne lub poza zakresem
 
     const sliderData = [
         {
@@ -32,16 +40,20 @@ function Carousel() {
 
     const sliderElements = sliderData.map((item, index) => {
         return (
-            <div className={index === slide ? 'opacity-100' : 'opacity-0'}>
-                {index === slide && <img className="w-full rounded-md object-cover" src={item.url} alt="/" />}
-            </div>
+            index === slide &&
+            <img
+                key={index}
+                className="w-full rounded-xl object-cover"
+                src={item.url}
+                alt="/"
+            />
         )
     })
 
     return (
         <div className='max-w-[1240px] mx-auto px-4 py-16 relative flex justify-center items-center'>
-            <BsArrowLeftSquareFill onClick={prevSlide} className='absolute top-[50%] left-8 text-3xl text-white'/>
-            <BsArrowRightSquareFill onClick={nextSlide} className='absolute top-[50%] right-8 text-3xl text-white'/>
+            <BsArrowLeftSquareFill onClick={prevSlide} className='absolute top-[50%] left-8 text-3xl text-white' />
+            <BsArrowRightSquareFill onClick={nextSlide} className='absolute top-[50%] right-8 text-3xl text-white' />
             {sliderElements}
         </div>
     )
